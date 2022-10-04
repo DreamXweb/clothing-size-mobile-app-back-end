@@ -5,14 +5,8 @@ const { initializeApp, applicationDefault } = require('firebase-admin/app');
 const { getAuth } = require('firebase-admin/auth');
 
 // api - https://elasticemail.com/developers/api-documentation/rest-api#operation/emailsPost
-const ELASTIC_EMAIL_URL = 'https://api.elasticemail.com/v4/emails?apikey=***';
-// password: *** for ***
-
-const pathname = '';
-
-const domain = process.env.LOCAL === 'yes' ? 'http://localhost:3000' : 'https://cardsicle.com';
-
-const SITE_URL = domain + pathname;
+const ELASTIC_EMAIL_URL = 'https://api.elasticemail.com/v4/emails?apikey=3A79CC68F56210D3C4855D3B8E5B5FC86A598D0312BFE39CD8AE8BB3590186F59346C665C1E447BDA2C45911E9F1286E';
+// password: DF2D1B26D1C8FEA67CF34C1FB4C4CE36EEB7 for alexxxxxx2019@gmail.com
 
 // Use your project ID here
 const PROJECTID = 'cardsicles-com';
@@ -62,13 +56,13 @@ module.exports.anError = (res) => {
 module.exports.sendEmail = sendEmail;
 
 module.exports.sendStartRegistration = async ({email, registration_code}) => {
-    defaultElasticEmailBody.Content.Body[0].Content = template.get({type: 'start-registration', site_url: SITE_URL, data: registration_code});
+    defaultElasticEmailBody.Content.Body[0].Content = template.get({type: 'start-registration', data: registration_code});
     defaultElasticEmailBody.Content.Subject = 'Registration to cardsicles.com link';
     return await sendEmail({email})
 }
 
 module.exports.sendForgotPassword = async ({email, uid}) => {
-    defaultElasticEmailBody.Content.Body[0].Content = template.get({type: 'forgot-password', site_url: SITE_URL, data: uid});
+    defaultElasticEmailBody.Content.Body[0].Content = template.get({type: 'forgot-password', data: uid});
     defaultElasticEmailBody.Content.Subject = 'Password reset on cardsicles.com';
     return await sendEmail({email})
 }
@@ -91,5 +85,3 @@ module.exports.log = (obj) => {
     let key = Object.keys(obj)[0];
     console.log(key + ' = ', obj[key]);
 }
-
-module.exports.SITE_URL = SITE_URL;

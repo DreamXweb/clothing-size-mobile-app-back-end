@@ -1,17 +1,37 @@
-module.exports.get = ({type, site_url, data}) => {
+
+// TODO check
+module.exports.get = ({type, data}) => {
 
     // TODO add colors (shadows) to the email template
 
-    let registration_img = 'https://dreamxweb.com/cardsicle/static/img/ellipses/Group_8182.png';
-    let first_text = 'Thank you for registering. <br/> Your registration <strong> link </strong> is <a href=\'' + site_url + '/log-in?registration_code=' + data + '\'>here</a>';
-    let second_text = '<p class="text-center" style="text-align: center; margin: 0; padding: 0;">Follow it to start using the <a href=\'' + site_url + '/\'>cardsicles.com</a> service</p>\n' +
-        '                              <p class="text-center" style="text-align: center; margin: 0; padding: 0;">Log in into your account using your credentials</p>';
+    let content_1 = '                    <tr>\n' +
+        '                      <td style="text-align: left; color: rgb(95, 95, 95); font-size: 12px; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif; word-break: break-word; direction: ltr; box-sizing: border-box;">\n' +
+        '                        <p style="text-align: center; margin: 0; padding: 0; color: rgb(34, 34, 34); font-size: 24px;">Thank you for registering. <br> Here is your <strong> verification code </strong>:</p>\n' +
+        '                      </td>\n' +
+        '                    </tr>\n' +
+        '                    <tr>\n' +
+        '                      <td style="text-align: center; color: rgb(95, 95, 95); font-size: 12px; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif; word-break: break-word; direction: ltr; box-sizing: border-box; padding-top: 15px;">\n' +
+        '                        <span style="display: inline-block; width: 72px; height: 57px; border: 2px solid #76C5F2; border-radius: 8px; font-size: 30px; padding-top: 15px; margin-left: 5px; margin-right: 5px;">' + data[0] + '</span>\n' +
+        '                        <span style="display: inline-block; width: 72px; height: 57px; border: 2px solid #76C5F2; border-radius: 8px; font-size: 30px; padding-top: 15px; margin-left: 5px; margin-right: 5px;">' + data[1] + '</span>\n' +
+        '                        <span style="display: inline-block; width: 72px; height: 57px; border: 2px solid #76C5F2; border-radius: 8px; font-size: 30px; padding-top: 15px; margin-left: 5px; margin-right: 5px;">' + data[2] + '</span>\n' +
+        '                        <span style="display: inline-block; width: 72px; height: 57px; border: 2px solid #76C5F2; border-radius: 8px; font-size: 30px; padding-top: 15px; margin-left: 5px; margin-right: 5px;">' + data[3] + '</span>\n' +
+        '                      </td>\n' +
+        '                    </tr>\n';
 
+    let content_2 =         '                        <p style="text-align: center; margin: 0; padding: 0;">Enter it to start using the Size Math mobile application</p>\n' +
+        '                        <p style="text-align: center; margin: 0; padding: 0;">The log in into your account using your credentials</p>\n';
+
+
+    // TODO check
     if (type === 'forgot-password') {
-        first_text = 'Your new <strong> password </strong> is ' + data;
-        second_text = '<p class="text-center" style="text-align: center; margin: 0; padding: 0;">You can use it to <a href=\'' + site_url + '/log-in/\'>log in</a> to your account</p>\n' +
+        content_1 = '                    <tr>\n' +
+            '                      <td style="text-align: left; color: rgb(95, 95, 95); font-size: 12px; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif; word-break: break-word; direction: ltr; box-sizing: border-box;">\n' +
+            '                        <p style="text-align: center; margin: 0; padding: 0; color: rgb(34, 34, 34); font-size: 24px;">Your new <strong> password </strong> is ' + data + '</p>\n' +
+            '                      </td>\n' +
+            '                    </tr>\n'
+
+        content_2 = '<p class="text-center" style="text-align: center; margin: 0; padding: 0;">You can use it to log in to your account</p>\n' +
             '                              <p class="text-center" style="text-align: center; margin: 0; padding: 0;">The password can be changed in your profile settings</p>';
-        registration_img = 'https://dreamxweb.com/cardsicle/static/img/ellipses/v2/Group_8207.png';
     }
 
     return '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>\n' +
@@ -37,22 +57,9 @@ module.exports.get = ({type, site_url, data}) => {
         '  #main-table {\n' +
         '    max-width: 600px;\n' +
         '  }\n' +
-        '  .layer_2 {\n' +
-        '    width: 50%;\n' +
-        '  }\n' +
-        '  #my-dear-circle {\n' +
-        '    margin: -229px 0 -14px calc(200% - 550px);\n' +
-        '  }\n' +
         '  @media only screen and (max-width: 600px) {\n' +
         '    #main-table {\n' +
         '      max-width: 100%;\n' +
-        '    }\n' +
-        '    .layer_2 {\n' +
-        '      max-width: 100% !important;\n' +
-        '      width: 100%;\n' +
-        '    }\n' +
-        '    #my-dear-circle {\n' +
-        '      margin: -229px 0 -14px calc(100% - 250px);\n' +
         '    }\n' +
         '  }\n' +
         '  @media only screen and (max-width: 480px) {\n' +
@@ -73,167 +80,87 @@ module.exports.get = ({type, site_url, data}) => {
         '  <tbody>\n' +
         '  <tr>\n' +
         '    <td valign="top" id="d-body" style="width: 100%; height: 100%; padding-top: 50px; padding-bottom: 50px; background-color: #e4e6ec;">\n' +
-        '      <table style=\'width: 100%\'><tr><td>\n' +
-        '        <table class="layer_1" align="center" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%; box-sizing: border-box; width: 100%; margin: 0 auto;">\n' +
+        '\n' +
+        '      <table style="width: 100%;"><tbody><tr><td>\n' +
+        '        <table align="center" border="0" cellpadding="0" cellspacing="0" style="max-width: 100%; box-sizing: border-box; width: 100%; margin: 0 auto;">\n' +
         '          <tbody>\n' +
         '          <tr>\n' +
-        '            <td class="draw" valign="top" align="center" style="background-color: #ffffff; box-sizing: border-box; font-size: 0; text-align: center;">\n' +
-        '              <table style="width: 100%"><tr><td>\n' +
-        '                <div class="layer_2" style="max-width: 100%; display: inline-block; vertical-align: top; width: 100%;">\n' +
-        '                  <table class="ed-content" style="border-collapse: collapse;width:100%" border="0" cellpadding="0" cellspacing="0">\n' +
+        '            <td valign="top" align="center" style="background-color: rgb(255, 255, 255); box-sizing: border-box; font-size: 0; text-align: center;">\n' +
+        '              <table style="width: 100%;"><tbody><tr><td>\n' +
+        '                <div style="max-width: 100%; display: inline-block; vertical-align: top; width: 100%;">\n' +
+        '                  <table style="border-collapse: collapse; width: 100%;" border="0" cellpadding="0" cellspacing="0">\n' +
         '                    <tbody>\n' +
         '                    <tr>\n' +
-        '                      <td class="ed-img" valign="top" style="padding: 55px 0 90px 0; box-sizing: border-box; text-align: center; overflow: hidden">\n' +
-        '                        <img style="border-width: 0; font-size:12px; border-style: none; max-width: 280px; width: 100%;" width="309" alt="Image" src="' + registration_img + '">\n' +
+        '                      <td valign="top" style="padding: 55px 0 90px; box-sizing: border-box; text-align: center; overflow: hidden;">\n' +
+        '                        <img style="border-width: 0; font-size: 12px; border-style: none; max-width: 280px; width: 100%;" width="309" alt="Image" src="https://firebasestorage.googleapis.com/v0/b/clothingsize-61807.appspot.com/o/Group%207370.png?alt=media&token=9022ebe0-559a-4da9-abaf-166ea9f61f87">\n' +
         '                      </td>\n' +
         '                    </tr>\n' +
         '                    </tbody>\n' +
         '                  </table>\n' +
         '                </div>\n' +
-        '              </td></tr></table>\n' +
+        '              </td></tr></tbody></table>\n' +
         '            </td>\n' +
         '          </tr>\n' +
         '          <tr>\n' +
-        '            <td class="draw" valign="top" align="center" style="background-color: #ffffff; box-sizing: border-box; font-size: 0; text-align: center;">\n' +
-        '              <table style=\'width: 100%\'><tr><td>\n' +
-        '                <div class="layer_2" style="max-width: 100%; display: inline-block; vertical-align: top; width: 100%;">\n' +
-        '                  <table border="0" cellspacing="0" class="ed-content" style="border-collapse: collapse;width:100%">\n' +
+        '            <td valign="top" align="center" style="background-color: rgb(255, 255, 255); box-sizing: border-box; font-size: 0; text-align: center;">\n' +
+        '              <table style="width: 100%;"><tbody><tr><td>\n' +
+        '                <div style="max-width: 100%; display: inline-block; vertical-align: top; width: 100%;">\n' +
+        '                  <table border="0" cellspacing="0" style="border-collapse: collapse; width: 100%;">\n' +
+        '                    <tbody>\n' +
+        content_1 +
+        '                    </tbody>\n' +
+        '                  </table>\n' +
+        '                </div>\n' +
+        '              </td></tr></tbody></table>\n' +
+        '            </td>\n' +
+        '          </tr>\n' +
+        '          <tr>\n' +
+        '            <td valign="top" align="center" style="background-color: rgb(255, 255, 255); box-sizing: border-box; font-size: 0; text-align: center;">\n' +
+        '              <table style="width: 100%;"><tbody><tr><td>\n' +
+        '                <div style="max-width: 100%; display: inline-block; vertical-align: top; width: 100%;">\n' +
+        '                  <table border="0" cellspacing="0" style="border-collapse: collapse; width: 100%;">\n' +
         '                    <tbody>\n' +
         '                    <tr>\n' +
-        '                      <td valign="top" class="ed-text" style="text-align: left; color: #5f5f5f; font-size: 12px; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif; word-break: break-word; direction: ltr; box-sizing: border-box;">\n' +
-        '                        <p class="style1 text-center" style="text-align: center; margin: 0; padding: 0; color: #222222; font-size: 24px;">' + first_text + '</p>\n' +
+        '                      <td valign="top" style="padding: 30px 0 60px; text-align: left; color: rgb(34, 34, 34); font-size: 16px; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif; word-break: break-word; direction: ltr; box-sizing: border-box;">\n' +
+        content_2 +
         '                      </td>\n' +
         '                    </tr>\n' +
         '                    </tbody>\n' +
         '                  </table>\n' +
         '                </div>\n' +
-        '              </td></tr></table>\n' +
+        '              </td></tr></tbody></table>\n' +
         '            </td>\n' +
         '          </tr>\n' +
         '          <tr>\n' +
-        '            <td class="draw" valign="top" align="center" style="background-color: #ffffff; box-sizing: border-box; font-size: 0; text-align: center;">\n' +
-        '              <table style=\'width: 100%\'><tr><td>\n' +
-        '                <div class="layer_2" style="max-width: 100%; display: inline-block; vertical-align: top; width: 100%;">\n' +
-        '                  <table border="0" cellspacing="0" class="ed-content" style="border-collapse: collapse;width:100%">\n' +
+        '            <td valign="top" align="center" style="background-color: rgb(255, 255, 255); box-sizing: border-box; font-size: 0; text-align: center;">\n' +
+        '              <table style="width: 100%;"><tbody><tr><td>\n' +
+        '                <div style="max-width: 100%; display: inline-block; vertical-align: top; width: 100%;">\n' +
+        '                  <table border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse; width: 100%;">\n' +
         '                    <tbody>\n' +
         '                    <tr>\n' +
-        '                      <td valign="top" class="ed-text" style="padding: 30px 0 60px 0; text-align: left; color: #222222; font-size: 16px; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif; word-break: break-word; direction: ltr; box-sizing: border-box;">\n' +
-        second_text +
+        '                      <td valign="top" style="padding: 140px 0 72px; box-sizing: border-box; text-align: center;">\n' +
+        '                        <img src="https://firebasestorage.googleapis.com/v0/b/clothingsize-61807.appspot.com/o/people.png?alt=media&token=cb794a8b-779e-4665-b05a-fbf4618d83e7" alt="Image" width="303" style="border-width: 0; font-size: 12px; border-style: none; max-width: 303px; width: 100%;">\n' +
+        '                        <span style="height: 100px; color: black;">Get the right fit the first time, every time!</span>\n' +
+        '                      </td>\n' +
+        '                    </tr>\n' +
+        '                    <tr>\n' +
+        '                      <td valign="top" style="padding: 30px 0 60px; text-align: left; color: rgb(34, 34, 34); font-size: 16px; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif; word-break: break-word; direction: ltr; box-sizing: border-box;">\n' +
+        '                        <p style="text-align: center; margin: 0; padding: 0;">Get the right fit the first time, every time!</p>\n' +
         '                      </td>\n' +
         '                    </tr>\n' +
         '                    </tbody>\n' +
         '                  </table>\n' +
         '                </div>\n' +
-        '              </td></tr></table>\n' +
-        '            </td>\n' +
-        '          </tr>\n' +
-        '\n' +
-        '          <tr>\n' +
-        '            <td class="draw" valign="top" align="center" style="background-color: #ffffff; box-sizing: border-box; font-size: 0; text-align: center;">\n' +
-        '              <table style=\'width: 100%\'>\n' +
-        '                <tr>\n' +
-        '                  <td>\n' +
-        '                    <div class="layer_2" style="display: inline-block; vertical-align: top;">\n' +
-        '                      <table border="0" cellspacing="0" class="ed-content" style="border-collapse: collapse;width:100%">\n' +
-        '                        <tbody>\n' +
-        '                        <tr>\n' +
-        '                          <td valign="top" class="ed-img" style="padding: 70px 0 40px 0; box-sizing: border-box; text-align: center;">\n' +
-        '                            <img src="https://dreamxweb.com/cardsicle/static/img/ellipses/Illustration.png" alt="Image" width="191" style="font-size:12px; border-width: 0; border-style: none; max-width: 191px; width: 100%;">\n' +
-        '                          </td>\n' +
-        '                        </tr>\n' +
-        '                        <tr>\n' +
-        '                          <td valign="top" class="ed-text" style="padding-bottom: 40px; text-align: left; color: #222222; font-size: 14px; line-height: 150%; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif; word-break: break-word; direction: ltr; box-sizing: border-box;">\n' +
-        '                            <p class="style3 text-center" style="text-align: center; margin: 0; padding: 0; font-size: 20px; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif;">\n' +
-        '                              <strong>Buy Gift Cards</strong>\n' +
-        '                            </p>\n' +
-        '                            <p style="margin: 0; padding: 0;">\n' +
-        '                              <br>\n' +
-        '                            </p>\n' +
-        '                            <p class="text-center" style="text-align: center; margin: 0; padding: 0;">\n' +
-        '                            </p>\n' +
-        '                            <p class="text-center" style="text-align: center; margin: 0; padding: 20px;">Purchase gift cards from dozens of partner retailers and earn points towards future purchases.</p>\n' +
-        '                          </td>\n' +
-        '                        </tr>\n' +
-        '                        <tr>\n' +
-        '                          <td valign="top" class="ed-button text-center" style="text-align: center;">\n' +
-        '                            <table cellspacing="0" cellpadding="0" style="text-align: center;margin:0 auto;max-width: 216px" align="center">\n' +
-        '                              <tbody>\n' +
-        '                              <tr>\n' +
-        '                                <td align="center" class="text-center" style="cursor: pointer; border-radius: 8px; background: #696969; text-align: center;">\n' +
-        '                                  <a style="font-size: 20px; line-height: 24px; padding: 14px; word-break: break-word; color: #ffffff; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif; font-weight: normal; text-decoration: none; display: inline-block;" href=\'' + site_url + '/buy-gift-cards-page\'><span style="color: #ffffff;">Buy Gift Cards</span></a></td>\n' +
-        '                              </tr>\n' +
-        '                              </tbody>\n' +
-        '                            </table>\n' +
-        '                          </td>\n' +
-        '                        </tr>\n' +
-        '                        </tbody>\n' +
-        '                      </table>\n' +
-        '                    </div>\n' +
-        '                    <div class="layer_2" style="display: inline-block; vertical-align: top;">\n' +
-        '                      <table border="0" cellspacing="0" class="ed-content" style="border-collapse: collapse;width:100%;">\n' +
-        '                        <tbody>\n' +
-        '                        <tr>\n' +
-        '                          <td valign="top" class="ed-img" style="padding: 70px 0 64px 0; box-sizing: border-box; text-align: center;">\n' +
-        '                            <img src="https://dreamxweb.com/cardsicle/static/img/ellipses/Overspending.png" alt="Image" width="219" style="border-width: 0; font-size:12px; border-style: none; width: 219px;">\n' +
-        '                          </td>\n' +
-        '                        </tr>\n' +
-        '                        <tr>\n' +
-        '                          <td valign="top" class="ed-text" style="padding-bottom: 40px; text-align: left; color: #222222; font-size: 14px; line-height: 150%; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif; word-break: break-word; direction: ltr; box-sizing: border-box;">\n' +
-        '                            <p class="style3 text-center" style="text-align: center; margin: 0; padding: 0; font-size: 20px; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif;">\n' +
-        '                              <strong>Sell Gift Cards</strong>\n' +
-        '                            </p>\n' +
-        '                            <p style="margin: 0; padding: 0;">\n' +
-        '                              <br>\n' +
-        '                            </p>\n' +
-        '                            <p class="text-center" style="text-align: center; margin: 0; padding: 0;">\n' +
-        '                            </p>\n' +
-        '                            <p class="text-center" style="text-align: center; margin: 0 0 20px 0; padding: 20px;">Receive the highest payouts in the industry for your unwanted gift cards.</p>\n' +
-        '                          </td>\n' +
-        '                        </tr>\n' +
-        '                        <tr>\n' +
-        '                          <td valign="top" class="ed-button text-center" style="text-align: center;">\n' +
-        '                            <table cellspacing="0" cellpadding="0" style="text-align: center;margin:0 auto;max-width: 216px;" align="center">\n' +
-        '                              <tbody>\n' +
-        '                              <tr>\n' +
-        '                                <td align="center" class="text-center" style="cursor: pointer; border-radius: 8px; background: #696969; text-align: center;">\n' +
-        '                                  <a style="padding: 14px; font-size: 20px; line-height: 24px; word-break: break-word; color: #ffffff; font-family: \'Open Sans\', \'Helvetica Neue\', Helvetica, Arial, sans-serif; font-weight: normal; text-decoration: none; display: inline-block;" href=\'' + site_url + '/sell-gift-cards-page\'><span style="color: #ffffff;">Sell Gift Cards</span></a></td>\n' +
-        '                              </tr>\n' +
-        '                              </tbody>\n' +
-        '                            </table>\n' +
-        '                          </td>\n' +
-        '                        </tr>\n' +
-        '                        </tbody>\n' +
-        '                      </table>\n' +
-        '                    </div>\n' +
-        '                  </td>\n' +
-        '                </tr>\n' +
-        '              </table>\n' +
-        '            </td>\n' +
-        '          </tr>\n' +
-        '\n' +
-        '          <tr>\n' +
-        '            <td class="draw" valign="top" align="center" style="background-color: #ffffff; box-sizing: border-box; font-size: 0; text-align: center;">\n' +
-        '              <table style=\'width: 100%\'><tr><td>\n' +
-        '                <div class="layer_2" style="max-width: 100%; display: inline-block; vertical-align: top; width: 100%;">\n' +
-        '                  <table border="0" cellspacing="0" cellpadding="0" class="ed-content" style="border-collapse: collapse;width:100%">\n' +
-        '                    <tbody>\n' +
-        '                    <tr>\n' +
-        '                      <td valign="top" class="ed-img" style="padding: 140px 0 72px 0; box-sizing: border-box; text-align: center;">\n' +
-        '                        <img src="https://dreamxweb.com/cardsicle/static/img/ellipses/Group_8194.png" alt="Image" width="303" style="border-width: 0; font-size:12px; border-style: none; max-width: 303px; width: 100%;">\n' +
-        '                      </td>\n' +
-        '                    </tr>\n' +
-        '                    </tbody>\n' +
-        '                  </table>\n' +
-        '                </div>\n' +
-        '              </td></tr></table>\n' +
+        '              </td></tr></tbody></table>\n' +
         '            </td>\n' +
         '          </tr>\n' +
         '\n' +
         '          </tbody>\n' +
         '        </table>\n' +
-        '      </td></tr></table>\n' +
+        '      </td></tr></tbody></table>\n' +
+        '\n' +
         '    </td>\n' +
         '  </tr>\n' +
         '  </tbody>\n' +
-        '</table>\n';
+        '</table>';
 }
